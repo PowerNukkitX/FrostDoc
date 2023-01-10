@@ -1,0 +1,102 @@
+.icon-image {
+    width: 48px;
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+.icon-title {
+    font-weight: bold;
+    margin-top: -12px;
+    min-width: 33px;
+}
+
+.icon-title .icon-title-main {
+    padding-bottom: 4px;
+    border-bottom: 4px solid white;
+}
+
+.icon-title .icon-title-space {
+    width: 1px;
+}
+
+.icon-title .icon-title-sup {
+    font-size: 16px;
+    position: absolute;
+    margin-top: -3px;
+    margin-left: 1px;
+}
+
+@media (min-width: 1024px) {
+    .filled-height {
+        height: calc(100vh - 64px);
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width: 1024px) {
+    .filled-height {
+        height: calc(100vh - 56px);
+        overflow-y: scroll;
+    }
+}
+
+.mdui-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.category-super-div {
+    overflow-x: scroll;
+}
+
+p.category-title {
+    font-weight: bold;
+    display: inline;
+}
+
+.category-expander {
+    border-radius: 50%;
+    margin-left: 4px;
+    cursor: pointer;
+}
+
+ol.category-sub {
+    margin-bottom: 2px;
+}
+
+.category-v-space {
+    height: 20px;
+}
+
+.copyright {
+    width: fit-content;
+    font-size: 8px;
+}
+
+.fit {
+    width: fit-content;
+}
+
+.switch-language-text {
+    margin: 18px 0 8px 0;
+}
+
+#docsearch {
+    min-width: 52px;
+    min-height: 36px;
+    margin: 0 0 0 0;
+}
+
+.DocSearch-Container {
+    z-index: 1000;
+}
+
+.lang-ele {
+    display: none;
+}
+
+.bar-logo-icon {
+    width: 48px
+}

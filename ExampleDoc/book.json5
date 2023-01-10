@@ -1,0 +1,189 @@
+{
+  // 定义模板
+  // Define templates
+  "templates": [
+    {
+      "template-path": "en-us.html",
+      "catalogue-path": "en-us/catalogue.json",
+      "lang": "en-us"
+    },
+    {
+      "template-path": "zh-cn.html",
+      "catalogue-path": "zh-cn/catalogue.json",
+      "lang": "zh-cn"
+    }
+  ],
+  // 定义不同文件的处理方式
+  // Define different file processing methods
+  "workflows": [
+    // pom.xml，book.json这些配置文件直接忽略，我们不需要它们
+    // pom.xml, book.json and other configuration files are ignored, we don't need them.
+    {
+      "conditions": [
+        {
+          "or": [
+            {
+              "filename": "(.*pom.xml)|(.*book.json5)|(.*FrostRender-{0,9}.*)|(catalogue.json)"
+            },
+            {
+              "path": "(.*target[/\\\\].*)"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        "ignore"
+      ]
+    },
+    // js文件，除了min.js（已经编译完的文件）之外，都需要进行优化编译
+    // js files, except min.js (already compiled files), need to be optimized and compiled
+    {
+      "conditions": [
+        {
+          // 正则表达式，匹配所有js文件，但是排除了min.js
+          "filename": ".*(?<!\\.min)\\.js$"
+        }
+      ],
+      "steps": [
+        "fetch-file",
+        {
+          "id": "compile-js",
+          "args": {
+            "input-mode": "es12",
+            // Android 6+
+            "output-mode": "es7"
+          }
+        }
+      ]
+    },
+    // markdown文件处理
+    // markdown file processing
+    {
+      "conditions": [
+        {
+          "filename": ".*\\.md$"
+        }
+      ],
+      "steps": [
+        "fetch-file",
+        // 从文件内容中摘取标题
+        // Extract title from file content
+        {
+          "id": "collect-title",
+          "args": {
+            // 第一个group中的内容作为标题
+            // The content of the first group is used as the title
+            "title-regexp": "(?<!#)# (.+)(?= {0,2}[\\r\\n]{1,2})"
+          }
+        },
+        // 修补markdown链接中错误的相对位置
+        // Repair the wrong relative position in the Markdown link
+        "patch-link",
+        // 将markdown内容渲染为html
+        // Render markdown content as html
+        {
+          "id": "markdown",
+          "args": {
+            "css-classes": {
+              "h1": "mdui-text-color-theme",
+              "h2": "mdui-text-color-theme",
+              "h3": "mdui-text-color-theme",
+              "table": "mdui-table mdui-table-hoverable"
+            },
+            // 将会以mdui兼容的方式渲染
+            // Will be rendered in a mdui compatible way
+            "mode": "mdui-compatible"
+          }
+        },
+        // rename .md into .html
+        {
+          "id": "rename-file",
+          "args": {
+            "regexp": "\\.md$",
+            "replacement": ".html",
+            "rename-path": false
+          }
+        },
+        // 收集多语言链接
+        // Collect multi-language links
+        {
+          "id": "collector-multi-lang-link",
+          "args": {
+            // 每个文件的路径上符合正则表达式的部分将被替换为languages数组中的内容，然后进行排列组合
+            // The part of the path of each file that matches the regular expression will be replaced with the content of the languages array, and then the permutation combination will be performed.
+            "regexp": "([a-z]{2}-[a-z]{2})(?=[/\\\\])",
+            // 最终信息将被收集为multi-language-links变量以供模板调用
+            // The final information will be collected as the multi-language-links variable for template calls
+            "languages": [
+              "zh-cn",
+              "en-us"
+            ]
+          }
+        },
+        // 将渲染出来的html应用到模板中
+        // Apply rendered html to template
+        {
+          "id": "template",
+          "args": {
+            "template": {
+              // 第一个group中的内容加上.html作为模板的名称
+              // The content of the first group plus .html is used as the template name
+              "regexp": "([a-z]{2}-[a-z]{2})[/\\\\]",
+              "insert-after": ".html"
+            },
+            // 我们将用之前渲染的内容替换掉模板中的%md%
+            // We will replace the %md% in the template with the previously rendered content
+            "embed-content-placeholder": "md"
+          }
+        },
+        // 添加目录到html中
+        // Add a table of contents to html
+        {
+          "id": "catalogue",
+          "args": {
+            "css-classes": {
+              "ol": "category-sub",
+              "li": "category-item",
+              "a": "category-link",
+              "p": "category-title mdui-text-color-theme"
+            },
+            "embed-content-placeholder": "catalogue"
+          }
+        }
+      ]
+    },
+    // 复制主页
+    // Copy the index page
+    {
+      "conditions": [
+        {
+          "filename": ".*index\\.html$"
+        }
+      ],
+      "steps": [
+        "fetch-file",
+        "patch-link"
+      ]
+    },
+    // 压缩图片
+    // Compress images
+    {
+      "conditions": [
+        {
+          "filename": ".*\\.(png|jpg|jpeg|gif|bmp)$"
+        }
+      ],
+      "steps": [
+        "fetch-file",
+        {
+          "id": "compress-image",
+          "args": {
+            // quality: (0, 1) 越小质量越低，体积越小
+            // quality: (0, 1) The smaller the quality, the smaller the size
+            "quality": 0.01
+          }
+        }
+      ]
+    }
+  ]
+}

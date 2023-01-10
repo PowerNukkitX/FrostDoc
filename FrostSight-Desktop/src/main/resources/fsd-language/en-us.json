@@ -1,0 +1,16 @@
+{
+  "help": "Help",
+  "files": "File",
+  "settings": "Settings",
+  "error": "Error",
+  "about": "About FrostSight",
+  "about-text-1": "Frost Sight is part of the Frost Documentation Project",
+  "about-text-2": "With FrostRenderer ",
+  "about-text-3": "© PowerNukkitX Devs & Frost team",
+  "dark-light-theme": "Switch to {} mode",
+  "dark": "dark",
+  "light": "light",
+  "load-local-doc": "Load local document",
+  "select-doc-folder": "Select document folder",
+  "failed-to-find-config": "Unable to find the configuration file.\nPlease confirm if book.json or config.json exists."
+}

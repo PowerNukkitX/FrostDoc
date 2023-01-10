@@ -1,0 +1,22 @@
+{
+  "凛霜文档": "FrostDoc.html",
+  "设计与背景": "Design.html",
+  "触发条件": {
+    "文件名条件": "conditions/FileNameCondition.html",
+    "全路径条件": "conditions/PathCondition.html",
+    "或然条件": "conditions/OrCondition.html"
+  },
+  "工作步骤": {
+    "生成目录": "steps/CatalogueStep.html",
+    "编译JavaScript": "steps/CompileJavaScriptStep.html",
+    "压缩图片": "steps/CompressImageStep.html",
+    "载入文件": "steps/FetchFileStep.html",
+    "忽略文件": "steps/IgnoreStep.html",
+    "Markdown": "steps/MarkdownStep.html",
+    "移动目录": "steps/MoveDirStep.html",
+    "多语言链接": "steps/MultiLangLinkCollector.html",
+    "修补链接": "steps/PatchLinkStep.html",
+    "重命名文件": "steps/RenameStep.html",
+    "应用模板": "steps/TemplateStep.html"
+  }
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FrostSight</title>
+</head>
+<style>
+    #textArea {
+        color: dimgray;
+    }
+    #textArea h1,h2,h3,p {
+        margin: 0 0 0 0;
+    }
+    #textArea p {
+        font-size: max(3vw, 16px);
+        display: block;
+    }
+    #textArea h1 {
+        font-size: max(5vw, 30px);
+    }
+    #textArea h2 {
+        font-size: max(4vw, 24px);
+    }
+    #textArea h1+.ver {
+        font-size: max(3vw, 16px);
+    }
+    #textArea p+.ver {
+        font-size: max(2vw, 12px);
+    }
+    #textArea .ver::before {
+        content: " v";
+        margin-left: 1vw;
+    }
+</style>
+<script>
+    let failedToFindConfig = "Error";
+    window.onload = async () => {
+        failedToFindConfig = await format("failed-to-find-config");
+        // translate all ele with translate="yes"
+        let ele = document.querySelectorAll("[translate]");
+        for (let i = 0; i < ele.length; i++) {
+            ele[i].innerHTML = await format(ele[i].innerHTML);
+        }
+        document.getElementById('sight-ver').innerText = await getFrostSightVersion();
+        document.getElementById('renderer-ver').innerText = await getFrostRendererVersion();
+    }
+    async function clickDir() {
+        const result = await selectDir();
+        console.log(result);
+        if ("error" === result) {
+            console.log("Failed");
+            alert(failedToFindConfig);
+        }
+    }
+</script>
+<body>
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex">
+    <img src="../image/frost-gray.svg" alt="Logo" style="width: 25vw; min-width: 128px"/>
+    <div id="textArea">
+        <div style="display: flex"><h1>FrostSight</h1> <sup id="sight-ver" class="ver"></sup></div>
+        <br>
+        <p translate="yes">about-text-1</p>
+        <br>
+        <div style="display: flex"><p translate="yes">about-text-2</p> <sup id="renderer-ver" class="ver"></sup></div>
+    </div>
+</div>
+<div style="position: absolute; bottom: 25%; left: 50%; transform: translate(-50%, -50%)">
+    <button onclick="clickDir()" translate="yes">load-local-doc</button>
+</div>
+<div style="position: absolute; bottom: 0; left: 50%; transform: translate(-50%, -50%); width: 100%;">
+    <p style="color: gray;font-size: max(1vw, 8px); text-align: center" translate="yes">about-text-3</p>
+</div>
+</body>
+</html>

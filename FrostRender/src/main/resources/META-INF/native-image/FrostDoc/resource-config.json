@@ -1,0 +1,12 @@
+{
+  "bundles": [
+  ],
+  "resources": {
+    "includes": [
+      {
+        "pattern": "fr-language/.*"
+      }
+    ],
+    "excludes": []
+  }
+}

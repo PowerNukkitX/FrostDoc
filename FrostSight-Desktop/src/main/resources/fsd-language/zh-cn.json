@@ -1,0 +1,16 @@
+{
+  "help": "帮助",
+  "file": "文件",
+  "settings": "设置",
+  "error": "错误",
+  "about": "关于FrostSight",
+  "about-text-1": "FrostSight是凛霜文档项目的一部分",
+  "about-text-2": "内置凛霜文档引擎",
+  "about-text-3": "© PowerNukkitX 开发组 & 凛霜文档团队",
+  "dark-light-theme": "切换至{}模式",
+  "dark": "深色",
+  "light": "浅色",
+  "load-local-doc": "载入本地文档",
+  "select-doc-folder": "选择文档文件夹",
+  "failed-to-find-config": "无法找到配置文件\n请确认book.json或config.json是否存在"
+}
