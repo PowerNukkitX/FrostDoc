@@ -1,0 +1,37 @@
+name: Maven build and release
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          timeZone: 8
+          format: 'YYYY_MM_DD_HH_mm_ss'
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/heads/master')
+        with:
+          files: |
+            FrostRender/target/FrostRenderer-*-shaded.jar
+            FrostSight-Desktop/target/FrostSight-Desktop-*-shaded.jar
+          tag_name: ${{ steps.time.outputs.time }}
