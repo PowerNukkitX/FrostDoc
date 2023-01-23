@@ -32,6 +32,6 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/master')
         with:
           files: |
-            FrostRender/target/FrostRenderer-*-shaded.jar
+            FrostRender/target/FrostRender-*-shaded.jar
             FrostSight-Desktop/target/FrostSight-Desktop-*-shaded.jar
           tag_name: ${{ steps.time.outputs.time }}
