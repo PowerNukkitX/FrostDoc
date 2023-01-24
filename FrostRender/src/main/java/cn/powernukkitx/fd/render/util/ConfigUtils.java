@@ -46,7 +46,9 @@ public final class ConfigUtils {
                     stream.filter(p -> {
                         var fileName = p.getFileName().toString();
                         return fileName.contains(".json") && (fileName.contains("config") || fileName.contains("book"));
-                    }).findFirst().ifPresent(value -> userConfigPath = value);
+                    }).findFirst().ifPresent(value -> {
+                        userConfigPath = Shared.WORKING_DIR.get().relativize(value);
+                    });
                 }
             }
             if (userConfigPath == null) {

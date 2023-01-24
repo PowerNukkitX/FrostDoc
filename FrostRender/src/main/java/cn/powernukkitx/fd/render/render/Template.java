@@ -38,7 +38,7 @@ public final class Template {
         this.lang = lang;
         this.name = path.getFileName().toString();
         this.path = path;
-        this.templateContent = Files.readString(Shared.WORKING_DIR.get().resolve(path), StandardCharsets.UTF_8);
+        this.templateContent = Files.readString(path, StandardCharsets.UTF_8);
         this.cataloguePath = cataloguePath;
         if (Files.isReadable(cataloguePath)) {
             this.catalogue = ConfigUtils.GSON.get().fromJson(Files.readString(Shared.WORKING_DIR.get().resolve(cataloguePath), StandardCharsets.UTF_8), JsonObject.class);

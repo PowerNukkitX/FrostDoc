@@ -50,7 +50,7 @@ public class Renderer {
             var page = new Page(path, () -> {
                 // read content
                 try {
-                    return Files.readAllBytes(Shared.WORKING_DIR.get().resolve(path));
+                    return Files.readAllBytes(path);
                 } catch (IOException e) {
                     Logger.of(Renderer.class).error("cannot-read", "content-file", path, e.getLocalizedMessage());
                     return new byte[0];

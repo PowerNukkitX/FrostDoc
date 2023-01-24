@@ -91,7 +91,7 @@ public class Main {
                     renderer.addTemplate(new Template(obj.get("lang").getAsString(), path, cataloguePath));
                     Logger.of(Main.class).info("template-added", path.getFileName().toString());
                 } catch (IOException e) {
-                    Logger.of(Main.class).error("cannot-read", "template-file", obj.get("path").getAsString(), e.getLocalizedMessage());
+                    Logger.of(Main.class).error("cannot-read", "template-file", obj.get("template-path").getAsString(), e.getLocalizedMessage());
                     throw new RuntimeException(e);
                 }
             }
