@@ -5,6 +5,8 @@
 多语言文档信息将被以JSON对象字符串的形式作为文档的`multi-language-links`属性存储，如果文档接下来有
 `template-step`，则会将文档中的`%multi-language-links%`占位符替换掉。  
 
+特别地，如果目标语言的文档不存在，将会产生null而非字符串。  
+
 JSON对象字符串如下：  
 ```json
 {
