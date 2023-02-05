@@ -37,13 +37,16 @@ public class MultiLangLinkCollector implements Step {
         var linkObj = new JsonObject();
         for (var lang : languages) {
             var langStr = lang.getAsString();
-            var link = regexp.matcher(page.getOutputPath().toString()).replaceAll(langStr);
-            if (link != null) {
-                var tmp = Path.of(link);
-                if (Files.exists(Shared.OUTPUT_DIR.get().resolve(Shared.WORKING_DIR.get().relativize(tmp)))) {
-                    linkObj.addProperty(langStr, page.getOutputPath().getParent().relativize(tmp).toString().replace('\\', '/'));
+            var outputLink = regexp.matcher(page.getOutputPath().toString()).replaceAll(langStr);
+            var sourceLink = regexp.matcher(page.getPath().toString()).replaceAll(langStr);
+            if (outputLink != null) {
+                var outputPath = Path.of(outputLink);
+                var sourcePath = Path.of(sourceLink);
+                if (Files.exists(sourcePath)) {
+                    linkObj.addProperty(langStr, page.getOutputPath().getParent().relativize(outputPath).toString().replace('\\', '/'));
                 } else {
                     linkObj.add(langStr, JsonNull.INSTANCE);
+                    Logger.of(MultiLangLinkCollector.class).info("no-language-doc-found", langStr, page.getPath());
                 }
             }
         }

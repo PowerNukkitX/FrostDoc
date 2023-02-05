@@ -26,8 +26,12 @@
   "template-not-specify": "The file {} has not applied a template. Catalogue wont be generated.",
   "failed-to-parse-image": "Unable to parse image {}, reason: {}",
   "unsupported-image-format": "The image format used by {} is not supported temporarily.",
+  "no-language-doc-found": "{} version of doc {} cannot be found.",
 
   "config-file": "config file",
   "template-file": "template file",
-  "content-file": "content file"
+  "content-file": "content file",
+
+  "zh-cn": "Simplified Chinese",
+  "en-us": "English"
 }

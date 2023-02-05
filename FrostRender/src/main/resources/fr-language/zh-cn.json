@@ -27,8 +27,12 @@
   "template-not-specify": "文件 {} 尚未应用模板，无法注入目录。",
   "failed-to-parse-image": "无法解析图像 {}，原因：{}",
   "unsupported-image-format": "暂不支持 {} 所用的图像格式。",
+  "no-language-doc-found": "文档 {1} 的 {} 版本没有找到。",
 
   "config-file": "配置文件",
   "template-file": "模板文件",
-  "content-file": "内容文件"
+  "content-file": "内容文件",
+
+  "zh-cn": "简体中文",
+  "en-us": "英语"
 }
